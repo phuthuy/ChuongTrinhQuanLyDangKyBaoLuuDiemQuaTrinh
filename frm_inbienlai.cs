@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ThuHocPhi.DataHocphiTableAdapters;
+using ThuHocPhi.Shares;
 using ThuHocPhi.Views.Thuhocphi;
 
 namespace ThuHocPhi.Views
@@ -41,7 +42,7 @@ namespace ThuHocPhi.Views
 
         private void txt_mssv_TextChanged(object sender, EventArgs e)
         {
-            string ma = txt_mssv.Text;
+            string  ma = txt_mssv.Text;
             var qr = db.view_thuhocphis.Where(o => o.MaSV == ma);
             string tien = txt_tien.Text;
             // var qr = db.kqdk_dqts.Where(o => o.MaSV == ma);
@@ -50,12 +51,20 @@ namespace ThuHocPhi.Views
                 view_thuhocphi i = qr.SingleOrDefault();
                 txt_ten.Text = i.HoTen;
                 txt_tien.Text = i.TongTien.ToString();
+                Constants.masv = ma;
+                Constants.tensv = txt_ten.Text;
+                Constants.sotien = txt_tien.Text;
             }
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            frm_bienlai f = new frm_bienlai();
+            txt_ten.Text = "";
+            txt_mssv.Text = "";
+            txt_tien.Text = "";
+            Views.Thuhocphi.frm_bienlai f = new frm_bienlai();
+            f.ShowDialog();
         }
     }
 }
